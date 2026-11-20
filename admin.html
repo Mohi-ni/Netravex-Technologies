@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Netravex Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+<div class="page">
+<div class="wrap">
+
+<header class="nav" style="position:static">
+  <a class="brand" href="index.html">
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3 27 7v8c0 7-4.6 11.6-11 14C9.6 26.600 5 22 5 15V7l11-4Z" stroke="#52D6C4" stroke-width="1.6" stroke-linejoin="round"/><path d="M11 15.500 14.500 19 21.500 11.500" stroke="#F0A63A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Netravex<small>Enquiry desk</small></span>
+  </a>
+  <div class="row" style="align-items:center">
+    <span class="muted mono" id="whoami" style="font-size:.78rem" hidden></span>
+    <a class="btn" href="index.html">View site</a>
+    <button class="btn" type="button" id="signOut" hidden>Sign out</button>
+  </div>
+</header>
+
+<main>
+
+<!-- SIGN IN -->
+<section id="authView" class="auth">
+  <div class="panel card">
+    <p class="eyebrow">Staff only</p>
+    <h1 style="font-size:2rem">Sign in to the enquiry desk</h1>
+    <p class="muted">Use the email and password for your Netravex staff account. Accounts are created by an administrator in Supabase.</p>
+    <form id="loginForm" novalidate>
+      <label for="aEmail">Email<input type="email" id="aEmail" autocomplete="username" required></label>
+      <label for="aPass">Password<input type="password" id="aPass" autocomplete="current-password" required></label>
+      <div class="err" id="aErr" role="alert"></div>
+      <button class="btn primary" type="submit" id="aSubmit">Sign in</button>
+    </form>
+    <div class="warn" id="demoNote" hidden>
+      This copy is not connected to Supabase yet (see <b>config.js</b>), so sign-in is off.
+      <div class="row" style="margin-top:10px"><button class="btn" type="button" id="demoBtn">Preview with sample data</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dash" hidden>
+  <div class="sec-head" style="margin-bottom:22px">
+    <p class="eyebrow">Enquiry desk</p>
+    <h1 style="font-size:clamp(1.8rem,3.6vw,2.6rem)">Scoping enquiries</h1>
+    <p id="demoBanner" class="warn" hidden>Sample data. Changes here are not saved anywhere.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="panel kpi"><span>Total enquiries</span><b id="kTotal">0</b></div>
+    <div class="panel kpi"><span>New</span><b id="kNew">0</b></div>
+    <div class="panel kpi"><span>Average readiness</span><b id="kAvg">&ndash;</b></div>
+    <div class="panel kpi"><span>Early stage (below 40%)</span><b id="kLow">0</b></div>
+  </div>
+
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="Search organisation, name, email or reference" aria-label="Search enquiries">
+    <select id="statusFilter" aria-label="Filter by status">
+      <option value="ALL">All statuses</option><option value="NEW">New</option><option value="CONTACTED">Contacted</option><option value="SCHEDULED">Scheduled</option><option value="CLOSED">Closed</option>
+    </select>
+    <button class="btn" type="button" id="refresh">Refresh</button>
+    <button class="btn" type="button" id="exportCsv">Export CSV</button>
+  </div>
+  <div class="status" id="dStatus" role="status"></div>
+
+  <div class="tablewrap panel">
+    <table>
+      <thead><tr><th>Reference</th><th>Organisation and contact</th><th>Readiness</th><th>Status</th><th>Received</th><th><span class="sr">Details</span></th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<script src="config.js"></script>
+<script src="assets/areas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="assets/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+project_id = "netravex"
+
+# The public form calls this function without a signed-in user, so the gateway
+# must not require a user JWT. The function validates everything itself.
+[functions.submit-enquiry]
+verify_jwt = false
